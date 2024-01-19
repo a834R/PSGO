@@ -16,6 +16,28 @@ func main() {
 	fmt.Println(AtoiBase("7D", "0123456789ABCDEF"))
 	fmt.Println(AtoiBase("uoi", "choumi"))
 	fmt.Println(AtoiBase("bbbbbab", "-ab"))
+	fmt.Println("-----------------------")
+	result := ConvertBase("101011", "01", "0123456789")
+	fmt.Println(result)
+}
+
+func ConvertBase(nbr, baseFrom, baseTo string) string {
+	// first let's convern nbr to base 10
+	b10 := 0
+	flen := len(baseFrom)
+	for _, c := range nbr {
+		b10 = b10*flen + findCharIndex(baseFrom, c)
+	}
+
+	// then convert from base 10 to baseTo
+	res := ""
+	tlen := len(baseTo)
+	for b10 > 0 {
+		res = string(baseTo[b10%tlen]) + res
+		b10 /= tlen
+	}
+
+	return res
 }
 
 func AtoiBase(s string, base string) int {
